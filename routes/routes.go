@@ -25,8 +25,9 @@ func New() *echo.Echo {
 	mahasiswa.POST("", controllers.CreateMahasiswaController)                  // Create Mahasiswa
 	mahasiswa.PUT("/:id", controllers.UpdateMahasiswaController, m.IsLoggedIn) // Edit Mahasiswa
 
-	mahasiswa.GET("/buku", controllers.GetBukusController, m.IsLoggedIn)    // Get All Buku
-	mahasiswa.GET("/buku/:id", controllers.GetBukuController, m.IsLoggedIn) // Get Buku by ID
+	mahasiswa.GET("/buku", controllers.GetBukusController, m.IsLoggedIn)                  // Get All Buku
+	mahasiswa.GET("/buku/:id", controllers.GetBukuController, m.IsLoggedIn)               // Get Buku by ID
+	mahasiswa.GET("/buku/title/:title", controllers.GetBukuTitleController, m.IsLoggedIn) // Get Buku by ID
 
 	mahasiswa.POST("/pinjam", controllers.CreatePeminjamanController, m.IsLoggedIn, m.JWTValidator) // Pinjam Buku
 
@@ -58,7 +59,7 @@ func New() *echo.Echo {
 	// Pinjaman Buku
 	administrator.GET("/pinjam", controllers.GetPeminjamansController, m.IsLoggedIn, m.IsAdmin)
 	administrator.GET("/pinjam/:id", controllers.GetPeminjamanByIdController, m.IsLoggedIn, m.IsAdmin)
-	administrator.POST("/pinjam", controllers.CreatePeminjamanController, m.IsLoggedIn, m.IsAdmin)
+	administrator.POST("/pinjam", controllers.CreatePeminjamanAdminController, m.IsLoggedIn, m.IsAdmin, m.JWTValidatorAdmin)
 	administrator.PUT("/pinjam/:id", controllers.UpdatePeminjamanController, m.IsLoggedIn, m.IsAdmin)
 	administrator.DELETE("/pinjam/:id", controllers.DeletePeminjamanController, m.IsLoggedIn, m.IsAdmin)
 

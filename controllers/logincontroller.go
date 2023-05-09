@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"fmt"
 	"Mini-Project/lib/database"
 	"Mini-Project/middlewares"
 	"Mini-Project/models"
+	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -13,6 +13,12 @@ import (
 func LoginMahasiswaController(c echo.Context) error {
 	mahasiswa := models.Mahasiswa{}
 	c.Bind(&mahasiswa)
+
+	if mahasiswa.NIM == 0 || mahasiswa.Password == "" {
+		return c.JSON(http.StatusBadRequest, models.Response{
+			Message: "Data tidak boleh kosong",
+		})
+	}
 
 	mahasiswa, err := database.LoginMahasiswa(mahasiswa)
 
@@ -23,7 +29,7 @@ func LoginMahasiswaController(c echo.Context) error {
 		})
 	}
 
-	token, err := middlewares.CreateToken(int(mahasiswa.ID), mahasiswa.Email, mahasiswa.Role)
+	token, err := middlewares.CreateTokenMahasiswa(int(mahasiswa.ID), int(mahasiswa.NIM), mahasiswa.Email, mahasiswa.Role)
 
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{

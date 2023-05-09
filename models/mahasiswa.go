@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/jinzhu/gorm"
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo"
 )
 
 type Mahasiswa struct {
@@ -19,6 +19,11 @@ type Mahasiswa struct {
 	Prodi    string `json:"prodi" form:"prodi" validate:"required"`
 	Role     string `json:"role" form:"role" gorm:"type:enum('Admin', 'Mahasiswa');default:'Mahasiswa'; not-null"`
 	Status   string `json:"status" form:"status" gorm:"type:enum('0', '1');default:'0'; not-null"`
+}
+
+type MahasiswaLogin struct {
+	NIM      string `json:"nim" form:"nim" validate:"required"`
+	Password string `json:"password" form:"password" validate:"required"`
 }
 
 // For Response
