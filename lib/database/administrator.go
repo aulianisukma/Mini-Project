@@ -3,6 +3,7 @@ package database
 import (
 	"Mini-Project/config"
 	"Mini-Project/models"
+	"errors"
 )
 
 func GetAdministrator() (admin []models.Administrator, err error) {
@@ -56,10 +57,14 @@ func DeleteAdministrator(id any) (interface{}, error) {
 }
 
 func LoginAdministrator(admin models.Administrator) (models.Administrator, error) {
+	if admin.Email == "" || admin.Password == "" {
+		return models.Administrator{}, errors.New("Email and password are required")
+	}
+
 	err := config.DB.Where("email = ? AND password = ?", admin.Email, admin.Password).First(&admin).Error
 
 	if err != nil {
-		return models.Administrator{}, nil
+		return models.Administrator{}, errors.New("Invalid login")
 	}
 
 	return admin, nil

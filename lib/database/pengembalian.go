@@ -6,7 +6,7 @@ import (
 )
 
 func GetPengembalian() (pengembalian []models.Pengembalian, err error) {
-	err = config.DB.Preload("Mahasiswa").Preload("Buku").Find(&pengembalian).Error
+	err = config.DB.Find(&pengembalian).Error
 
 	if err != nil {
 		return []models.Pengembalian{}, err

@@ -10,3 +10,4 @@ func Log(e *echo.Echo) {
 		Format: `[${time_rfc3339}] ${status} ${method} ${host}${path} ${latency_human}` + "\n",
 	}))
 }
+

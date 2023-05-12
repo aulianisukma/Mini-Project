@@ -22,3 +22,10 @@ type PeminjamanResponse struct {
 	Judul           string    `json:"judul" form:"judul"`
 	Tanggal_kembali time.Time `json:"tanggal_kembali" form:"tanggal_kembali"`
 }
+
+// For Response Get Peminjaman
+type PeminjamanResponses struct {
+	NIM            int    `json:"nim" form:"nim"`
+	Judul          string `json:"judul" form:"judul"`
+	Tanggal_pinjam string `json:"tanggal_pinjam" form:"tanggal_pinjam"`
+}

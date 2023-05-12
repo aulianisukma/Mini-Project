@@ -24,9 +24,18 @@ func GetPeminjamansController(c echo.Context) error {
 		})
 	}
 
+	respon := make([]models.PeminjamanResponses, len(peminjaman))
+	for i, peminjamans := range peminjaman {
+		respon[i] = models.PeminjamanResponses{
+			NIM:            peminjamans.NIM,
+			Judul:          peminjamans.Judul,
+			Tanggal_pinjam: peminjamans.Tanggal_pinjam.Format("02 Januari 2006 15:04:05"),
+		}
+	}
+
 	return c.JSON(http.StatusOK, models.Response{
 		Message: "success get all peminjaman",
-		Data:    peminjaman,
+		Data:    respon,
 	})
 }
 

@@ -6,7 +6,7 @@ import (
 )
 
 func GetPeminjaman() (peminjaman []models.Peminjaman, err error) {
-	err = config.DB.Preload("Mahasiswa").Preload("Buku").Find(&peminjaman).Error
+	err = config.DB.Find(&peminjaman).Error
 
 	if err != nil {
 		return []models.Peminjaman{}, err
